@@ -1,233 +1,229 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>挪车联系</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>挪车联系</title>
+  <style>
+    :root {
+      --primary: #4a90e2;
+      --primary-dark: #357abd;
+      --text: #fff;
+      --text-light: #e0e0e0;
+      --text-muted: #888;
+      --bg-dark: #1a1a1a;
+      --bg-card: rgba(30, 30, 30, 0.9);
+    }
 
-        body {
-            background-color: #000;
-            color: #fff;
-            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        .container {
-            max-width: 500px;
-            width: 100%;
-            background-color: rgba(30, 30, 30, 0.9);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            text-align: center;
-            animation: fadeIn 0.8s ease-out;
-            border: 1px solid #333;
-        }
+    body {
+      background: linear-gradient(135deg, #0a0a0a, var(--bg-dark));
+      color: var(--text);
+      font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    main.container {
+      max-width: 480px;
+      width: 100%;
+      background: var(--bg-card);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      border: 1px solid #333;
+      text-align: center;
+      animation: fadeIn 0.8s ease-out;
+    }
 
-        .title {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #fff;
-            font-weight: 600;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-        .notice {
-            font-size: 18px;
-            line-height: 1.6;
-            margin-bottom: 25px;
-            color: #e0e0e0;
-        }
+    .car-icon {
+      font-size: 42px;
+      margin-bottom: 15px;
+      color: var(--primary);
+    }
 
-        .contact-info {
-            background-color: rgba(40, 40, 40, 0.7);
-            border-radius: 12px;
-            padding: 20px;
-            margin: 25px 0;
-            border-left: 4px solid #4a90e2;
-        }
+    h1.title {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
 
-        .contact-item {
-            margin: 15px 0;
-            font-size: 18px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    p.notice {
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--text-light);
+      margin-bottom: 25px;
+    }
 
-        .contact-label {
-            font-weight: 500;
-            color: #aaa;
-        }
+    section.contact-info {
+      background-color: rgba(40, 40, 40, 0.7);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 25px 0;
+      border-left: 4px solid var(--primary);
+      text-align: left;
+    }
 
-        .contact-value {
-            font-weight: 600;
-            color: #fff;
-        }
+    .contact-item {
+      margin: 12px 0;
+      font-size: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-        .phone-link {
-            display: inline-block;
-            background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 20px;
-            font-weight: 600;
-            margin: 10px 0;
-            box-shadow: 0 4px 15px rgba(74, 144, 226, 0.4);
-            transition: all 0.3s ease;
-        }
+    .contact-label {
+      font-weight: 500;
+      color: #aaa;
+    }
 
-        .phone-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(74, 144, 226, 0.6);
-        }
+    .contact-value {
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: color 0.3s;
+    }
 
-        .phone-link:active {
-            transform: translateY(1px);
-        }
+    .contact-value:hover {
+      color: var(--primary);
+    }
 
-        .copy-hint {
-            font-size: 14px;
-            color: #888;
-            margin-top: 15px;
-        }
+    a.phone-link {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: var(--text);
+      padding: 12px 25px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 600;
+      margin-top: 10px;
+      box-shadow: 0 4px 15px rgba(74, 144, 226, 0.4);
+      transition: all 0.3s ease;
+    }
 
-        .footer {
-            margin-top: 30px;
-            font-size: 14px;
-            color: #666;
-        }
+    a.phone-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(74, 144, 226, 0.6);
+    }
 
-        .car-icon {
-            font-size: 40px;
-            margin-bottom: 15px;
-            color: #4a90e2;
-        }
+    a.phone-link:active {
+      transform: translateY(1px);
+    }
 
-        @media (max-width: 480px) {
-            .container {
-                padding: 20px 15px;
-            }
+    .copy-hint {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 15px;
+    }
 
-            .title {
-                font-size: 22px;
-            }
+    footer.footer {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #666;
+    }
 
-            .notice, .contact-item {
-                font-size: 16px;
-            }
+    @media (max-width: 480px) {
+      main.container {
+        padding: 20px 15px;
+      }
 
-            .phone-link {
-                font-size: 18px;
-                padding: 10px 20px;
-            }
-        }
-    </style>
+      h1.title {
+        font-size: 22px;
+      }
+
+      p.notice, .contact-item {
+        font-size: 16px;
+      }
+
+      a.phone-link {
+        font-size: 17px;
+        padding: 10px 20px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="car-icon">🚗</div>
-        <h1 class="title">临时停车通知</h1>
+  <main class="container">
+    <div class="car-icon">🚗</div>
+    <h1 class="title">临时停车通知</h1>
+    <p class="notice">
+      临时停车，深表歉意！<br>
+      如需挪车，请致电：
+    </p>
 
-        <div class="notice">
-            临时停车，深表歉意！<br>
-            如需挪车，请致电：
-        </div>
+    <section class="contact-info">
+      <div class="contact-item">
+        <span class="contact-label">姓名：</span>
+        <span class="contact-value">王先生</span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">电话：</span>
+        <span class="contact-value phone-number" data-phone="18612594307">18612594307</span>
+      </div>
+    </section>
 
-        <div class="contact-info">
-            <div class="contact-item">
-                <span class="contact-label">姓名：</span>
-                <span class="contact-value">王先生</span>
-            </div>
-            <div class="contact-item">
-                <span class="contact-label">电话：</span>
-                <span class="contact-value">18612594307</span>
-            </div>
-        </div>
+    <a href="tel:18612594307" class="phone-link">点击拨打挪车电话</a>
 
-        <a href="tel:18612594307" class="phone-link">点击拨打挪车电话</a>
+    <p class="copy-hint">点击或长按电话号码可复制</p>
 
-        <div class="copy-hint">长按电话号码可复制</div>
+    <footer class="footer">感谢您的理解与配合</footer>
+  </main>
 
-        <div class="footer">
-            感谢您的理解与配合
-        </div>
-    </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const phoneElement = document.querySelector('.phone-number');
+      const phoneNumber = phoneElement.dataset.phone;
 
-    <script>
-        // 添加点击复制电话号码的功能
-        document.addEventListener('DOMContentLoaded', function() {
-            const phoneElement = document.querySelector('.contact-value');
+      phoneElement.addEventListener('click', () => copyPhone(phoneNumber));
 
-            phoneElement.addEventListener('click', function() {
-                const phoneNumber = '18612594307';
+      async function copyPhone(number) {
+        try {
+          if (navigator.clipboard) {
+            await navigator.clipboard.writeText(number);
+          } else {
+            fallbackCopy(number);
+          }
+          showCopied();
+        } catch (err) {
+          console.error('复制失败: ', err);
+          alert('复制失败，请手动复制号码');
+        }
+      }
 
-                // 使用现代剪贴板API
-                if (navigator.clipboard) {
-                    navigator.clipboard.writeText(phoneNumber)
-                        .then(() => {
-                            // 显示复制成功提示
-                            const originalText = phoneElement.textContent;
-                            phoneElement.textContent = '已复制到剪贴板！';
-                            phoneElement.style.color = '#4CAF50';
+      function fallbackCopy(text) {
+        const input = document.createElement('textarea');
+        input.value = text;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
+      }
 
-                            setTimeout(() => {
-                                phoneElement.textContent = originalText;
-                                phoneElement.style.color = '#fff';
-                            }, 1500);
-                        })
-                        .catch(err => {
-                            console.error('复制失败: ', err);
-                            fallbackCopy(phoneNumber);
-                        });
-                } else {
-                    fallbackCopy(phoneNumber);
-                }
-            });
-
-            // 传统复制方法
-            function fallbackCopy(text) {
-                const textArea = document.createElement("textarea");
-                textArea.value = text;
-                document.body.appendChild(textArea);
-                textArea.select();
-                try {
-                    document.execCommand('copy');
-                    // 显示复制成功提示
-                    const originalText = phoneElement.textContent;
-                    phoneElement.textContent = '已复制到剪贴板！';
-                    phoneElement.style.color = '#4CAF50';
-
-                    setTimeout(() => {
-                        phoneElement.textContent = originalText;
-                        phoneElement.style.color = '#fff';
-                    }, 1500);
-                } catch (err) {
-                    console.error('传统复制方法失败: ', err);
-                    alert('复制失败，请手动复制电话号码');
-                }
-                document.body.removeChild(textArea);
-            }
-        });
-    </script>
+      function showCopied() {
+        const originalText = phoneElement.textContent;
+        phoneElement.textContent = '已复制到剪贴板！';
+        phoneElement.style.color = '#4CAF50';
+        setTimeout(() => {
+          phoneElement.textContent = originalText;
+          phoneElement.style.color = '';
+        }, 1500);
+      }
+    });
+  </script>
 </body>
 </html>
