@@ -108,14 +108,16 @@ h1 { font-size: 26px; margin-bottom: 10px; }
     cursor: pointer;
     user-select: none;
     transition: all 0.3s ease;
+    display: none;
 }
 #musicToggle:hover { background: rgba(255,255,255,0.35); }
 </style>
 </head>
 <body>
 <div id="musicToggle">🔊</div>
+
 <audio id="bgMusic" loop preload="auto">
-  <source src="https://cdn.pixabay.com/audio/2022/10/25/audio_3232c0dd08.mp3" type="audio/mpeg">
+  <source src="https://cdn.pixabay.com/audio/2023/03/26/audio_8b8bbf826c.mp3" type="audio/mpeg">
 </audio>
 
 <div class="container" id="infoBox">
@@ -149,22 +151,7 @@ h1 { font-size: 26px; margin-bottom: 10px; }
 <script>
 const bgMusic = document.getElementById('bgMusic');
 const musicToggle = document.getElementById('musicToggle');
-let musicOn = false;
-
-// 尝试预播放音乐（静音）
-bgMusic.volume = 0;
-bgMusic.play().catch(() => {});
-
-// 等待用户交互后恢复音量播放
-function enableMusic() {
-  if (!musicOn) {
-    bgMusic.volume = 0.5;
-    bgMusic.play();
-    musicOn = true;
-  }
-}
-document.addEventListener('touchstart', enableMusic, { once: true });
-document.addEventListener('click', enableMusic, { once: true });
+let musicOn = true;
 
 // 音乐开关
 musicToggle.addEventListener('click', () => {
@@ -252,6 +239,8 @@ function endGame() {
     gameHint.style.display = 'none';
     gameOverBox.style.display = 'block';
     scoreDisplay.textContent = '您的得分：' + score;
+    bgMusic.pause();
+    musicToggle.style.display = 'none';
 }
 
 document.addEventListener('keydown', e => {
@@ -288,12 +277,17 @@ playBtn.addEventListener('click', () => {
     gameOverBox.style.display = 'none';
     canvas.style.display = 'block';
     gameHint.style.display = 'block';
+    bgMusic.volume = 0.5;
+    bgMusic.play().catch(()=>{});
+    musicToggle.style.display = 'block';
     initGame();
 });
 retryBtn.addEventListener('click', () => {
     gameOverBox.style.display = 'none';
     canvas.style.display = 'block';
     gameHint.style.display = 'block';
+    bgMusic.play();
+    musicToggle.style.display = 'block';
     initGame();
 });
 backBtn.addEventListener('click', () => {
