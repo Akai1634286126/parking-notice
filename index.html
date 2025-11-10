@@ -13,15 +13,13 @@
       --text-muted: #aaa;
       --bg-dark: #0a0a0a;
     }
-
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-
     body {
-      font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      font-family: 'PingFang SC','Microsoft YaHei',sans-serif;
       background: linear-gradient(-45deg, #1e3c72, #2a5298, #182848, #141e30);
       background-size: 400% 400%;
       animation: gradientShift 10s ease infinite;
@@ -32,60 +30,52 @@
       color: var(--text);
       padding: 20px;
     }
-
     @keyframes gradientShift {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-
     main.container {
       width: 100%;
       max-width: 480px;
-      background: rgba(30, 30, 30, 0.85);
+      background: rgba(30,30,30,0.85);
       border-radius: 20px;
       padding: 30px 25px;
       text-align: center;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.08);
       animation: fadeInUp 0.8s ease-out;
       backdrop-filter: blur(6px);
     }
-
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
     .car-icon {
       font-size: 42px;
       color: var(--primary);
       margin-bottom: 15px;
     }
-
     h1.title {
       font-size: 24px;
       font-weight: 600;
       margin-bottom: 15px;
       text-shadow: 0 2px 4px rgba(0,0,0,0.3);
     }
-
     p.notice {
       font-size: 18px;
       line-height: 1.6;
       color: var(--text-light);
       margin-bottom: 25px;
     }
-
     section.contact-info, section.car-info {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255,255,255,0.05);
       border-radius: 12px;
       padding: 18px;
       margin-bottom: 20px;
       text-align: left;
       border-left: 4px solid var(--primary);
     }
-
     .contact-item, .car-item {
       display: flex;
       justify-content: space-between;
@@ -93,23 +83,19 @@
       font-size: 17px;
       margin: 8px 0;
     }
-
     .contact-label, .car-label {
       color: var(--text-muted);
       font-weight: 500;
     }
-
     .contact-value, .car-value {
       font-weight: 600;
       color: var(--text);
       cursor: pointer;
       transition: color 0.3s;
     }
-
     .contact-value:hover {
       color: var(--primary);
     }
-
     a.phone-link {
       display: inline-block;
       background: linear-gradient(135deg, var(--primary), var(--primary-dark));
@@ -123,28 +109,27 @@
       box-shadow: 0 4px 15px rgba(74,144,226,0.4);
       transition: all 0.3s ease;
     }
-
     a.phone-link:hover {
       transform: translateY(-3px);
       box-shadow: 0 6px 20px rgba(74,144,226,0.6);
     }
-
     a.phone-link:active {
       transform: translateY(1px);
     }
-
-    .map-link {
+    .game-link {
       display: inline-block;
       margin-top: 8px;
       color: var(--primary);
       text-decoration: none;
       font-size: 15px;
-      transition: 0.3s;
+      background: rgba(255,255,255,0.08);
+      padding: 8px 15px;
+      border-radius: 30px;
+      transition: all 0.3s;
     }
-    .map-link:hover {
-      text-decoration: underline;
+    .game-link:hover {
+      background: rgba(255,255,255,0.15);
     }
-
     .tips {
       margin-top: 20px;
       background: rgba(255,255,255,0.05);
@@ -154,34 +139,21 @@
       color: #ccc;
       line-height: 1.6;
     }
-
-    .qrcode {
-      margin-top: 25px;
-      text-align: center;
+    .wechat-note {
+      margin-top: 20px;
+      font-size: 16px;
+      color: var(--text-light);
     }
-    .qrcode img {
-      width: 120px;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-    }
-    .qrcode p {
-      font-size: 14px;
-      color: var(--text-muted);
-      margin-top: 8px;
-    }
-
     .copy-hint {
       font-size: 14px;
       color: var(--text-muted);
       margin-top: 12px;
     }
-
     footer.footer {
       margin-top: 25px;
       font-size: 14px;
       color: #666;
     }
-
     @media (max-width: 480px) {
       main.container {
         padding: 20px 15px;
@@ -218,31 +190,30 @@
     <section class="car-info">
       <div class="car-item">
         <span class="car-label">车牌号：</span>
-        <span class="car-value">晋B·12345</span>
+        <span class="car-value">晋B LL931</span>
       </div>
       <div class="car-item">
         <span class="car-label">车型：</span>
-        <span class="car-value">黑色丰田凯美瑞</span>
+        <span class="car-value">黑色 哈弗 H6</span>
       </div>
     </section>
 
     <!-- 拨号按钮 -->
     <a href="tel:18612594307" class="phone-link">📞 点击拨打挪车电话</a>
-    <a href="https://maps.google.com/?q=40.0909,113.2969" target="_blank" class="map-link">📍 打开停车位置</a>
+
+    <!-- 替换为小游戏链接 -->
+    <a href="https://example.com/game" target="_blank" class="game-link">🎮 打开小游戏放松一下</a>
 
     <p class="copy-hint">点击电话号码可复制</p>
+
+    <!-- 微信同号提示 -->
+    <p class="wechat-note">📱 微信同号</p>
 
     <!-- 温馨提示 -->
     <section class="tips">
       🚘 车辆不会长时间停放。<br>
-      若造成不便，敬请谅解与包容！
+      若造成不便，敬请谅解与配合！
     </section>
-
-    <!-- 二维码联系 -->
-    <div class="qrcode">
-      <img src="qrcode.jpg" alt="扫码联系车主" />
-      <p>扫一扫联系我</p>
-    </div>
 
     <footer class="footer">
       感谢您的理解与配合
