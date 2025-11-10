@@ -5,142 +5,146 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>临时停车联系</title>
 <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-        font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
-        color: #fff;
-        text-align: center;
-        height: 100vh;
-        overflow: hidden;
-        background: linear-gradient(-45deg, #1a2a6c, #b21f1f, #fdbb2d, #283e51);
-        background-size: 400% 400%;
-        animation: gradient 10s ease infinite;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    @keyframes gradient {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-    .container {
-        background: rgba(0, 0, 0, 0.6);
-        border-radius: 16px;
-        padding: 30px;
-        max-width: 480px;
-        width: 90%;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-        animation: fadeIn 1s ease-out;
-    }
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-    h1 { font-size: 26px; margin-bottom: 10px; }
-    .notice { color: #ddd; margin: 15px 0; line-height: 1.6; font-size: 17px; }
-    .contact-info {
-        background: rgba(255, 255, 255, 0.08);
-        border-radius: 12px;
-        padding: 15px;
-        text-align: left;
-        margin-top: 20px;
-    }
-    .contact-item {
-        margin: 10px 0;
-        display: flex;
-        justify-content: space-between;
-        font-size: 16px;
-    }
-    .contact-label { color: #aaa; }
-    .contact-value { color: #fff; font-weight: 600; }
-    .btn {
-        margin-top: 25px;
-        background: linear-gradient(135deg, #4a90e2, #357abd);
-        color: white;
-        padding: 12px 24px;
-        border-radius: 50px;
-        font-size: 18px;
-        font-weight: 600;
-        text-decoration: none;
-        box-shadow: 0 4px 15px rgba(74, 144, 226, 0.4);
-        cursor: pointer;
-        transition: all 0.3s ease;
-        border: none;
-    }
-    .btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 20px rgba(74, 144, 226, 0.6);
-    }
-    #gameCanvas {
-        display: none;
-        background: #000;
-        border-radius: 12px;
-        margin-top: 20px;
-    }
-    #gameOver {
-        display: none;
-        background: rgba(0,0,0,0.7);
-        padding: 20px;
-        border-radius: 12px;
-        margin-top: 20px;
-    }
-    .footer {
-        margin-top: 20px;
-        color: #888;
-        font-size: 14px;
-    }
-    /* 音乐按钮 */
-    #musicToggle {
-        position: fixed;
-        top: 15px;
-        right: 15px;
-        font-size: 24px;
-        background: rgba(255,255,255,0.2);
-        padding: 10px 12px;
-        border-radius: 50%;
-        cursor: pointer;
-        user-select: none;
-        transition: all 0.3s ease;
-    }
-    #musicToggle:hover {
-        background: rgba(255,255,255,0.35);
-    }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    color: #fff;
+    text-align: center;
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(-45deg, #1a2a6c, #b21f1f, #fdbb2d, #283e51);
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+.container {
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 16px;
+    padding: 30px;
+    max-width: 480px;
+    width: 90%;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    animation: fadeIn 1s ease-out;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+h1 { font-size: 26px; margin-bottom: 10px; }
+.notice { color: #ddd; margin: 15px 0; line-height: 1.6; font-size: 17px; }
+.contact-info {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 15px;
+    text-align: left;
+    margin-top: 20px;
+}
+.contact-item {
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+}
+.contact-label { color: #aaa; }
+.contact-value { color: #fff; font-weight: 600; }
+.btn {
+    margin-top: 25px;
+    background: linear-gradient(135deg, #4a90e2, #357abd);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(74, 144, 226, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(74, 144, 226, 0.6);
+}
+#gameCanvas {
+    display: none;
+    background: #000;
+    border-radius: 12px;
+    margin-top: 10px;
+}
+#gameOver {
+    display: none;
+    background: rgba(0,0,0,0.7);
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+}
+#gameHint {
+    display: none;
+    font-size: 14px;
+    color: #ccc;
+    margin-top: 10px;
+}
+.footer {
+    margin-top: 20px;
+    color: #888;
+    font-size: 14px;
+}
+#musicToggle {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    background: rgba(255,255,255,0.2);
+    padding: 10px 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s ease;
+}
+#musicToggle:hover { background: rgba(255,255,255,0.35); }
 </style>
 </head>
 <body>
-    <div id="musicToggle">🔊</div>
-    <audio id="bgMusic" loop>
-        <source src="https://cdn.pixabay.com/audio/2023/02/16/audio_6b12e83f52.mp3" type="audio/mpeg">
-    </audio>
+<div id="musicToggle">🔊</div>
+<audio id="bgMusic" autoplay loop>
+  <source src="https://cdn.pixabay.com/audio/2022/07/26/audio_03fa84b71c.mp3" type="audio/mpeg">
+</audio>
 
-    <div class="container" id="infoBox">
-        <div style="font-size:40px;">🚗</div>
-        <h1>临时停车通知</h1>
-        <p class="notice">临时停车，深表歉意！如需挪车，请联系：</p>
+<div class="container" id="infoBox">
+    <div style="font-size:40px;">🚗</div>
+    <h1>临时停车通知</h1>
+    <p class="notice">临时停车，深表歉意！如需挪车，请联系：</p>
 
-        <div class="contact-info">
-            <div class="contact-item"><span class="contact-label">姓名：</span><span class="contact-value">王先生</span></div>
-            <div class="contact-item"><span class="contact-label">电话：</span><span class="contact-value">18612594307</span></div>
-            <div class="contact-item"><span class="contact-label">微信：</span><span class="contact-value">微信同号</span></div>
-            <div class="contact-item"><span class="contact-label">车辆：</span><span class="contact-value">晋B·LL931 黑色哈弗H6</span></div>
-        </div>
-
-        <a href="tel:18612594307" class="btn">📞 拨打电话</a>
-        <button class="btn" id="playBtn">🐍 打发时间小游戏</button>
-
-        <div class="footer">感谢您的理解与配合</div>
+    <div class="contact-info">
+        <div class="contact-item"><span class="contact-label">姓名：</span><span class="contact-value">王先生</span></div>
+        <div class="contact-item"><span class="contact-label">电话：</span><span class="contact-value">18612594307</span></div>
+        <div class="contact-item"><span class="contact-label">微信：</span><span class="contact-value">微信同号</span></div>
+        <div class="contact-item"><span class="contact-label">车辆：</span><span class="contact-value">晋B·LL931 黑色哈弗H6</span></div>
     </div>
 
-    <canvas id="gameCanvas" width="320" height="480"></canvas>
+    <a href="tel:18612594307" class="btn">📞 拨打电话</a>
+    <button class="btn" id="playBtn">🐍 打发时间小游戏</button>
 
-    <div id="gameOver">
-        <h2>游戏结束 🎮</h2>
-        <p id="scoreDisplay"></p>
-        <button class="btn" id="retryBtn">再玩一次</button>
-        <button class="btn" id="backBtn">返回信息页</button>
-    </div>
+    <div class="footer">感谢您的理解与配合</div>
+</div>
+
+<p id="gameHint">操作提示：键盘方向键 或 屏幕滑动 控制移动 🐍</p>
+<canvas id="gameCanvas" width="320" height="480"></canvas>
+
+<div id="gameOver">
+    <h2>游戏结束 🎮</h2>
+    <p id="scoreDisplay"></p>
+    <button class="btn" id="retryBtn">再玩一次</button>
+    <button class="btn" id="backBtn">返回信息页</button>
+</div>
 
 <script>
 const infoBox = document.getElementById('infoBox');
@@ -153,8 +157,9 @@ const retryBtn = document.getElementById('retryBtn');
 const backBtn = document.getElementById('backBtn');
 const musicToggle = document.getElementById('musicToggle');
 const bgMusic = document.getElementById('bgMusic');
+const gameHint = document.getElementById('gameHint');
 
-let musicOn = false;
+let musicOn = true;
 musicToggle.addEventListener('click', () => {
     if (musicOn) {
         bgMusic.pause();
@@ -228,6 +233,7 @@ function draw() {
 function endGame() {
     gameRunning = false;
     canvas.style.display = 'none';
+    gameHint.style.display = 'none';
     gameOverBox.style.display = 'block';
     scoreDisplay.textContent = '您的得分：' + score;
 }
@@ -265,11 +271,13 @@ playBtn.addEventListener('click', () => {
     infoBox.style.display = 'none';
     gameOverBox.style.display = 'none';
     canvas.style.display = 'block';
+    gameHint.style.display = 'block';
     initGame();
 });
 retryBtn.addEventListener('click', () => {
     gameOverBox.style.display = 'none';
     canvas.style.display = 'block';
+    gameHint.style.display = 'block';
     initGame();
 });
 backBtn.addEventListener('click', () => {
