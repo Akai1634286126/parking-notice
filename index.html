@@ -1,204 +1,299 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>临时停车通知</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
-      color: #fff;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(-45deg, #1a2a6c, #b21f1f, #fdbb2d, #1a2a6c);
-      background-size: 400% 400%;
-      animation: gradientMove 10s ease infinite;
-      overflow: hidden;
-    }
-
-    @keyframes gradientMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    .container {
-      background: rgba(0,0,0,0.6);
-      padding: 25px;
-      border-radius: 20px;
-      max-width: 500px;
-      width: 90%;
-      text-align: center;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-    }
-
-    .title { font-size: 24px; font-weight: bold; margin-bottom: 10px; }
-    .notice { margin: 15px 0; font-size: 18px; color: #eee; }
-    .contact-info { margin: 15px 0; font-size: 16px; }
-    .contact-item { margin: 5px 0; }
-    .btn {
-      background: #4a90e2;
-      color: #fff;
-      border: none;
-      border-radius: 50px;
-      padding: 10px 20px;
-      font-size: 18px;
-      cursor: pointer;
-      transition: 0.3s;
-      text-decoration: none;
-      display: inline-block;
-    }
-    .btn:hover { background: #357abd; }
-
-    canvas {
-      background: rgba(255,255,255,0.05);
-      border-radius: 10px;
-      margin-top: 15px;
-      display: none;
-    }
-
-    #music-btn {
-      position: fixed;
-      top: 15px;
-      right: 15px;
-      background: rgba(255,255,255,0.2);
-      border: none;
-      border-radius: 50%;
-      width: 45px;
-      height: 45px;
-      font-size: 20px;
-      cursor: pointer;
-      color: #fff;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>临时停车联系</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    color: #fff;
+    text-align: center;
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(-45deg, #1a2a6c, #b21f1f, #fdbb2d, #283e51);
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+.container {
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 16px;
+    padding: 30px;
+    max-width: 480px;
+    width: 90%;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    animation: fadeIn 1s ease-out;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+h1 { font-size: 26px; margin-bottom: 10px; }
+.notice { color: #ddd; margin: 15px 0; line-height: 1.6; font-size: 17px; }
+.contact-info {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 15px;
+    text-align: left;
+    margin-top: 20px;
+}
+.contact-item {
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+}
+.contact-label { color: #aaa; }
+.contact-value { color: #fff; font-weight: 600; }
+.btn {
+    margin-top: 25px;
+    background: linear-gradient(135deg, #4a90e2, #357abd);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(74, 144, 226, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(74, 144, 226, 0.6);
+}
+#gameCanvas {
+    display: none;
+    background: #000;
+    border-radius: 12px;
+    margin-top: 10px;
+}
+#gameOver {
+    display: none;
+    background: rgba(0,0,0,0.7);
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+}
+#gameHint {
+    display: none;
+    font-size: 14px;
+    color: #ccc;
+    margin-top: 10px;
+}
+.footer {
+    margin-top: 20px;
+    color: #888;
+    font-size: 14px;
+}
+#musicToggle {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    background: rgba(255,255,255,0.2);
+    padding: 10px 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s ease;
+    display: none;
+}
+#musicToggle:hover { background: rgba(255,255,255,0.35); }
+</style>
 </head>
 <body>
-  <button id="music-btn">🔊</button>
+<div id="musicToggle">🔊</div>
 
-  <div class="container" id="info-page">
-    <div class="title">🚗 临时停车通知</div>
-    <div class="notice">临时停车，深表歉意！如需挪车，请联系：</div>
+<audio id="bgMusic" loop preload="auto">
+  <source src="https://cdn.pixabay.com/audio/2023/03/26/audio_8b8bbf826c.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container" id="infoBox">
+    <div style="font-size:40px;">🚗</div>
+    <h1>临时停车通知</h1>
+    <p class="notice">临时停车，深表歉意！如需挪车，请联系：</p>
+
     <div class="contact-info">
-      <div class="contact-item">姓名：王先生</div>
-      <div class="contact-item">电话：18612594307（微信同号）</div>
-      <div class="contact-item">车辆信息：晋B·LL931 黑色哈弗 H6</div>
+        <div class="contact-item"><span class="contact-label">姓名：</span><span class="contact-value">王先生</span></div>
+        <div class="contact-item"><span class="contact-label">电话：</span><span class="contact-value">18612594307</span></div>
+        <div class="contact-item"><span class="contact-label">微信：</span><span class="contact-value">微信同号</span></div>
+        <div class="contact-item"><span class="contact-label">车辆：</span><span class="contact-value">晋B·LL931 黑色哈弗H6</span></div>
     </div>
-    <a href="#" class="btn" id="start-game">🐍 打发时间小游戏</a>
-  </div>
 
-  <canvas id="game" width="320" height="320"></canvas>
+    <a href="tel:18612594307" class="btn">📞 拨打电话</a>
+    <button class="btn" id="playBtn">🐍 打发时间小游戏</button>
 
-  <audio id="bgm" loop preload="auto" src="https://cdn.pixabay.com/audio/2023/03/26/audio_8b8bbf826c.mp3"></audio>
+    <div class="footer">感谢您的理解与配合</div>
+</div>
 
-  <script>
-    const bgm = document.getElementById("bgm");
-    const musicBtn = document.getElementById("music-btn");
-    let musicPlaying = true;
+<p id="gameHint">操作提示：键盘方向键 或 屏幕滑动 控制移动 🐍</p>
+<canvas id="gameCanvas" width="320" height="480"></canvas>
 
-    // 微信环境自动播放
-    document.addEventListener("WeixinJSBridgeReady", function () {
-      bgm.play().catch(()=>{});
-    });
+<div id="gameOver">
+    <h2>游戏结束 🎮</h2>
+    <p id="scoreDisplay"></p>
+    <button class="btn" id="retryBtn">再玩一次</button>
+    <button class="btn" id="backBtn">返回信息页</button>
+</div>
 
-    // 普通浏览器点击解锁播放
-    document.body.addEventListener("click", function () {
-      if (bgm.paused) bgm.play().catch(()=>{});
-    }, { once: true });
+<script>
+const bgMusic = document.getElementById('bgMusic');
+const musicToggle = document.getElementById('musicToggle');
+let musicOn = true;
 
-    musicBtn.addEventListener("click", () => {
-      if (musicPlaying) {
-        bgm.pause();
-        musicBtn.textContent = "🔇";
-      } else {
-        bgm.play();
-        musicBtn.textContent = "🔊";
-      }
-      musicPlaying = !musicPlaying;
-    });
+// 音乐开关
+musicToggle.addEventListener('click', () => {
+  if (bgMusic.paused) {
+    bgMusic.play();
+    musicToggle.textContent = '🔊';
+  } else {
+    bgMusic.pause();
+    musicToggle.textContent = '🔇';
+  }
+});
 
-    // 贪吃蛇游戏逻辑
-    const startBtn = document.getElementById('start-game');
-    const canvas = document.getElementById('game');
-    const ctx = canvas.getContext('2d');
-    const infoPage = document.getElementById('info-page');
+const infoBox = document.getElementById('infoBox');
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+const gameOverBox = document.getElementById('gameOver');
+const scoreDisplay = document.getElementById('scoreDisplay');
+const playBtn = document.getElementById('playBtn');
+const retryBtn = document.getElementById('retryBtn');
+const backBtn = document.getElementById('backBtn');
+const gameHint = document.getElementById('gameHint');
 
-    let box = 16;
-    let snake = [{x: 10*box, y: 10*box}];
-    let direction = "RIGHT";
-    let food = spawnFood();
-    let gameInterval;
+let snake, food, dx, dy, score, gameRunning, cellSize;
 
-    function spawnFood() {
-      return {
-        x: Math.floor(Math.random() * 20) * box,
-        y: Math.floor(Math.random() * 20) * box
-      };
-    }
+function resizeCanvas() {
+    canvas.width = window.innerWidth * 0.8;
+    canvas.height = window.innerHeight * 0.7;
+    cellSize = Math.floor(canvas.width / 20);
+}
+window.addEventListener('resize', resizeCanvas);
 
-    document.addEventListener("keydown", directionControl);
+function initGame() {
+    resizeCanvas();
+    snake = [{ x: 10, y: 10 }];
+    food = { x: 5, y: 5 };
+    dx = 1; dy = 0;
+    score = 0;
+    gameRunning = true;
+    loop();
+}
 
-    function directionControl(event) {
-      if(event.key === "ArrowLeft" && direction !== "RIGHT") direction = "LEFT";
-      if(event.key === "ArrowUp" && direction !== "DOWN") direction = "UP";
-      if(event.key === "ArrowRight" && direction !== "LEFT") direction = "RIGHT";
-      if(event.key === "ArrowDown" && direction !== "UP") direction = "DOWN";
-    }
+function loop() {
+    if (!gameRunning) return;
+    update();
+    draw();
+    setTimeout(loop, 120);
+}
 
-    function drawGame() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for(let i=0;i<snake.length;i++){
-        ctx.fillStyle = (i==0) ? "#4a90e2" : "#66b3ff";
-        ctx.fillRect(snake[i].x, snake[i].y, box-1, box-1);
-      }
-
-      ctx.fillStyle = "#ffcc00";
-      ctx.fillRect(food.x, food.y, box-1, box-1);
-
-      let headX = snake[0].x;
-      let headY = snake[0].y;
-
-      if(direction === "LEFT") headX -= box;
-      if(direction === "UP") headY -= box;
-      if(direction === "RIGHT") headX += box;
-      if(direction === "DOWN") headY += box;
-
-      if(headX === food.x && headY === food.y){
-        food = spawnFood();
-      } else {
+function update() {
+    const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+    if (head.x < 0) head.x = Math.floor(canvas.width / cellSize) - 1;
+    if (head.y < 0) head.y = Math.floor(canvas.height / cellSize) - 1;
+    if (head.x >= Math.floor(canvas.width / cellSize)) head.x = 0;
+    if (head.y >= Math.floor(canvas.height / cellSize)) head.y = 0;
+    if (head.x === food.x && head.y === food.y) {
+        score++;
+        food = {
+            x: Math.floor(Math.random() * (canvas.width / cellSize)),
+            y: Math.floor(Math.random() * (canvas.height / cellSize))
+        };
+    } else {
         snake.pop();
-      }
-
-      let newHead = {x: headX, y: headY};
-
-      // 碰撞检测
-      if(
-        headX < 0 || headY < 0 ||
-        headX >= canvas.width || headY >= canvas.height ||
-        snake.some(s => s.x === newHead.x && s.y === newHead.y)
-      ){
-        clearInterval(gameInterval);
-        alert("游戏结束！再玩一次吧！");
-        infoPage.style.display = "block";
-        canvas.style.display = "none";
-        return;
-      }
-
-      snake.unshift(newHead);
     }
+    snake.unshift(head);
+    for (let i = 1; i < snake.length; i++) {
+        if (snake[i].x === head.x && snake[i].y === head.y) endGame();
+    }
+}
 
-    startBtn.addEventListener('click', () => {
-      infoPage.style.display = 'none';
-      canvas.style.display = 'block';
-      snake = [{x: 10*box, y: 10*box}];
-      direction = "RIGHT";
-      food = spawnFood();
-      clearInterval(gameInterval);
-      gameInterval = setInterval(drawGame, 120);
-    });
-  </script>
+function draw() {
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = 'lime';
+    snake.forEach(s => ctx.fillRect(s.x * cellSize, s.y * cellSize, cellSize - 1, cellSize - 1));
+    ctx.fillStyle = 'red';
+    ctx.fillRect(food.x * cellSize, food.y * cellSize, cellSize - 1, cellSize - 1);
+    ctx.fillStyle = 'white';
+    ctx.font = "16px Arial";
+    ctx.fillText("得分: " + score, 10, 20);
+}
+
+function endGame() {
+    gameRunning = false;
+    canvas.style.display = 'none';
+    gameHint.style.display = 'none';
+    gameOverBox.style.display = 'block';
+    scoreDisplay.textContent = '您的得分：' + score;
+    bgMusic.pause();
+    musicToggle.style.display = 'none';
+}
+
+document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowUp' && dy !== 1) { dx = 0; dy = -1; }
+    else if (e.key === 'ArrowDown' && dy !== -1) { dx = 0; dy = 1; }
+    else if (e.key === 'ArrowLeft' && dx !== 1) { dx = -1; dy = 0; }
+    else if (e.key === 'ArrowRight' && dx !== -1) { dx = 1; dy = 0; }
+});
+
+let touchStartX = 0, touchStartY = 0;
+canvas.addEventListener('touchstart', e => {
+    const t = e.touches[0];
+    touchStartX = t.clientX;
+    touchStartY = t.clientY;
+});
+canvas.addEventListener('touchmove', e => {
+    if (!touchStartX || !touchStartY) return;
+    const t = e.touches[0];
+    let dxT = t.clientX - touchStartX;
+    let dyT = t.clientY - touchStartY;
+    if (Math.abs(dxT) > Math.abs(dyT)) {
+        if (dxT > 0 && dx !== -1) { dx = 1; dy = 0; }
+        else if (dxT < 0 && dx !== 1) { dx = -1; dy = 0; }
+    } else {
+        if (dyT > 0 && dy !== -1) { dx = 0; dy = 1; }
+        else if (dyT < 0 && dy !== 1) { dx = 0; dy = -1; }
+    }
+    touchStartX = 0;
+    touchStartY = 0;
+});
+
+playBtn.addEventListener('click', () => {
+    infoBox.style.display = 'none';
+    gameOverBox.style.display = 'none';
+    canvas.style.display = 'block';
+    gameHint.style.display = 'block';
+    bgMusic.volume = 0.5;
+    bgMusic.play().catch(()=>{});
+    musicToggle.style.display = 'block';
+    initGame();
+});
+retryBtn.addEventListener('click', () => {
+    gameOverBox.style.display = 'none';
+    canvas.style.display = 'block';
+    gameHint.style.display = 'block';
+    bgMusic.play();
+    musicToggle.style.display = 'block';
+    initGame();
+});
+backBtn.addEventListener('click', () => {
+    gameOverBox.style.display = 'none';
+    infoBox.style.display = 'block';
+});
+</script>
 </body>
 </html>
