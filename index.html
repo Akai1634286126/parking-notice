@@ -114,8 +114,8 @@ h1 { font-size: 26px; margin-bottom: 10px; }
 </head>
 <body>
 <div id="musicToggle">🔊</div>
-<audio id="bgMusic" autoplay loop>
-  <source src="https://cdn.pixabay.com/audio/2022/07/26/audio_03fa84b71c.mp3" type="audio/mpeg">
+<audio id="bgMusic" loop preload="auto">
+  <source src="https://cdn.pixabay.com/audio/2022/10/25/audio_3232c0dd08.mp3" type="audio/mpeg">
 </audio>
 
 <div class="container" id="infoBox">
@@ -147,6 +147,36 @@ h1 { font-size: 26px; margin-bottom: 10px; }
 </div>
 
 <script>
+const bgMusic = document.getElementById('bgMusic');
+const musicToggle = document.getElementById('musicToggle');
+let musicOn = false;
+
+// 尝试预播放音乐（静音）
+bgMusic.volume = 0;
+bgMusic.play().catch(() => {});
+
+// 等待用户交互后恢复音量播放
+function enableMusic() {
+  if (!musicOn) {
+    bgMusic.volume = 0.5;
+    bgMusic.play();
+    musicOn = true;
+  }
+}
+document.addEventListener('touchstart', enableMusic, { once: true });
+document.addEventListener('click', enableMusic, { once: true });
+
+// 音乐开关
+musicToggle.addEventListener('click', () => {
+  if (bgMusic.paused) {
+    bgMusic.play();
+    musicToggle.textContent = '🔊';
+  } else {
+    bgMusic.pause();
+    musicToggle.textContent = '🔇';
+  }
+});
+
 const infoBox = document.getElementById('infoBox');
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
@@ -155,21 +185,7 @@ const scoreDisplay = document.getElementById('scoreDisplay');
 const playBtn = document.getElementById('playBtn');
 const retryBtn = document.getElementById('retryBtn');
 const backBtn = document.getElementById('backBtn');
-const musicToggle = document.getElementById('musicToggle');
-const bgMusic = document.getElementById('bgMusic');
 const gameHint = document.getElementById('gameHint');
-
-let musicOn = true;
-musicToggle.addEventListener('click', () => {
-    if (musicOn) {
-        bgMusic.pause();
-        musicToggle.textContent = '🔇';
-    } else {
-        bgMusic.play();
-        musicToggle.textContent = '🔊';
-    }
-    musicOn = !musicOn;
-});
 
 let snake, food, dx, dy, score, gameRunning, cellSize;
 
