@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>挪车联系</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>临时停车通知</title>
   <style>
     :root {
       --primary: #4a90e2;
       --primary-dark: #357abd;
       --text: #fff;
       --text-light: #e0e0e0;
-      --text-muted: #888;
-      --bg-dark: #1a1a1a;
-      --bg-card: rgba(30, 30, 30, 0.9);
+      --text-muted: #aaa;
+      --bg-dark: #0a0a0a;
     }
 
     * {
@@ -22,44 +21,53 @@
     }
 
     body {
-      background: linear-gradient(135deg, #0a0a0a, var(--bg-dark));
-      color: var(--text);
       font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      background: linear-gradient(-45deg, #1e3c72, #2a5298, #182848, #141e30);
+      background-size: 400% 400%;
+      animation: gradientShift 10s ease infinite;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+      color: var(--text);
       padding: 20px;
     }
 
-    main.container {
-      max-width: 480px;
-      width: 100%;
-      background: var(--bg-card);
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      border: 1px solid #333;
-      text-align: center;
-      animation: fadeIn 0.8s ease-out;
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
+    main.container {
+      width: 100%;
+      max-width: 480px;
+      background: rgba(30, 30, 30, 0.85);
+      border-radius: 20px;
+      padding: 30px 25px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      animation: fadeInUp 0.8s ease-out;
+      backdrop-filter: blur(6px);
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     .car-icon {
       font-size: 42px;
-      margin-bottom: 15px;
       color: var(--primary);
+      margin-bottom: 15px;
     }
 
     h1.title {
       font-size: 24px;
       font-weight: 600;
-      margin-bottom: 20px;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      margin-bottom: 15px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
     }
 
     p.notice {
@@ -69,29 +77,29 @@
       margin-bottom: 25px;
     }
 
-    section.contact-info {
-      background-color: rgba(40, 40, 40, 0.7);
+    section.contact-info, section.car-info {
+      background: rgba(255, 255, 255, 0.05);
       border-radius: 12px;
-      padding: 20px;
-      margin: 25px 0;
-      border-left: 4px solid var(--primary);
+      padding: 18px;
+      margin-bottom: 20px;
       text-align: left;
+      border-left: 4px solid var(--primary);
     }
 
-    .contact-item {
-      margin: 12px 0;
-      font-size: 18px;
+    .contact-item, .car-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      font-size: 17px;
+      margin: 8px 0;
     }
 
-    .contact-label {
+    .contact-label, .car-label {
+      color: var(--text-muted);
       font-weight: 500;
-      color: #aaa;
     }
 
-    .contact-value {
+    .contact-value, .car-value {
       font-weight: 600;
       color: var(--text);
       cursor: pointer;
@@ -111,28 +119,65 @@
       text-decoration: none;
       font-size: 18px;
       font-weight: 600;
-      margin-top: 10px;
-      box-shadow: 0 4px 15px rgba(74, 144, 226, 0.4);
+      margin: 10px 0;
+      box-shadow: 0 4px 15px rgba(74,144,226,0.4);
       transition: all 0.3s ease;
     }
 
     a.phone-link:hover {
       transform: translateY(-3px);
-      box-shadow: 0 6px 20px rgba(74, 144, 226, 0.6);
+      box-shadow: 0 6px 20px rgba(74,144,226,0.6);
     }
 
     a.phone-link:active {
       transform: translateY(1px);
     }
 
+    .map-link {
+      display: inline-block;
+      margin-top: 8px;
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+    .map-link:hover {
+      text-decoration: underline;
+    }
+
+    .tips {
+      margin-top: 20px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+      padding: 15px;
+      font-size: 15px;
+      color: #ccc;
+      line-height: 1.6;
+    }
+
+    .qrcode {
+      margin-top: 25px;
+      text-align: center;
+    }
+    .qrcode img {
+      width: 120px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+    .qrcode p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 8px;
+    }
+
     .copy-hint {
       font-size: 14px;
       color: var(--text-muted);
-      margin-top: 15px;
+      margin-top: 12px;
     }
 
     footer.footer {
-      margin-top: 30px;
+      margin-top: 25px;
       font-size: 14px;
       color: #666;
     }
@@ -141,19 +186,9 @@
       main.container {
         padding: 20px 15px;
       }
-
-      h1.title {
-        font-size: 22px;
-      }
-
-      p.notice, .contact-item {
-        font-size: 16px;
-      }
-
-      a.phone-link {
-        font-size: 17px;
-        padding: 10px 20px;
-      }
+      h1.title { font-size: 22px; }
+      p.notice, .contact-item, .car-item { font-size: 16px; }
+      a.phone-link { font-size: 17px; padding: 10px 20px; }
     }
   </style>
 </head>
@@ -161,11 +196,13 @@
   <main class="container">
     <div class="car-icon">🚗</div>
     <h1 class="title">临时停车通知</h1>
+
     <p class="notice">
       临时停车，深表歉意！<br>
-      如需挪车，请致电：
+      如需挪车，请联系车主：
     </p>
 
+    <!-- 联系信息 -->
     <section class="contact-info">
       <div class="contact-item">
         <span class="contact-label">姓名：</span>
@@ -177,11 +214,39 @@
       </div>
     </section>
 
-    <a href="tel:18612594307" class="phone-link">点击拨打挪车电话</a>
+    <!-- 车辆信息 -->
+    <section class="car-info">
+      <div class="car-item">
+        <span class="car-label">车牌号：</span>
+        <span class="car-value">晋B·12345</span>
+      </div>
+      <div class="car-item">
+        <span class="car-label">车型：</span>
+        <span class="car-value">黑色丰田凯美瑞</span>
+      </div>
+    </section>
 
-    <p class="copy-hint">点击或长按电话号码可复制</p>
+    <!-- 拨号按钮 -->
+    <a href="tel:18612594307" class="phone-link">📞 点击拨打挪车电话</a>
+    <a href="https://maps.google.com/?q=40.0909,113.2969" target="_blank" class="map-link">📍 打开停车位置</a>
 
-    <footer class="footer">感谢您的理解与配合</footer>
+    <p class="copy-hint">点击电话号码可复制</p>
+
+    <!-- 温馨提示 -->
+    <section class="tips">
+      🚘 车辆不会长时间停放。<br>
+      若造成不便，敬请谅解与包容！
+    </section>
+
+    <!-- 二维码联系 -->
+    <div class="qrcode">
+      <img src="qrcode.jpg" alt="扫码联系车主" />
+      <p>扫一扫联系我</p>
+    </div>
+
+    <footer class="footer">
+      感谢您的理解与配合
+    </footer>
   </main>
 
   <script>
@@ -199,6 +264,7 @@
             fallbackCopy(number);
           }
           showCopied();
+          if (navigator.vibrate) navigator.vibrate(100);
         } catch (err) {
           console.error('复制失败: ', err);
           alert('复制失败，请手动复制号码');
