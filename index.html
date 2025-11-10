@@ -1,266 +1,262 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>临时停车通知</title>
-  <style>
-    :root {
-      --primary: #4a90e2;
-      --primary-dark: #357abd;
-      --text: #fff;
-      --text-light: #e0e0e0;
-      --text-muted: #aaa;
-      --bg-dark: #0a0a0a;
-    }
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>临时停车联系</title>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
-      font-family: 'PingFang SC','Microsoft YaHei',sans-serif;
-      background: linear-gradient(-45deg, #1e3c72, #2a5298, #182848, #141e30);
-      background-size: 400% 400%;
-      animation: gradientShift 10s ease infinite;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      color: var(--text);
-      padding: 20px;
+        font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        color: #fff;
+        text-align: center;
+        height: 100vh;
+        overflow: hidden;
+        background: linear-gradient(-45deg, #1a2a6c, #b21f1f, #fdbb2d, #283e51);
+        background-size: 400% 400%;
+        animation: gradient 10s ease infinite;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+
+    @keyframes gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
     }
-    main.container {
-      width: 100%;
-      max-width: 480px;
-      background: rgba(30,30,30,0.85);
-      border-radius: 20px;
-      padding: 30px 25px;
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      border: 1px solid rgba(255,255,255,0.08);
-      animation: fadeInUp 0.8s ease-out;
-      backdrop-filter: blur(6px);
+
+    .container {
+        background: rgba(0, 0, 0, 0.6);
+        border-radius: 16px;
+        padding: 30px;
+        max-width: 480px;
+        width: 90%;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+        animation: fadeIn 1s ease-out;
     }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
     }
-    .car-icon {
-      font-size: 42px;
-      color: var(--primary);
-      margin-bottom: 15px;
+
+    h1 { font-size: 26px; margin-bottom: 10px; }
+
+    .notice {
+        color: #ddd;
+        margin: 15px 0;
+        line-height: 1.6;
+        font-size: 17px;
     }
-    h1.title {
-      font-size: 24px;
-      font-weight: 600;
-      margin-bottom: 15px;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+
+    .contact-info {
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 15px;
+        text-align: left;
+        margin-top: 20px;
     }
-    p.notice {
-      font-size: 18px;
-      line-height: 1.6;
-      color: var(--text-light);
-      margin-bottom: 25px;
+
+    .contact-item {
+        margin: 10px 0;
+        display: flex;
+        justify-content: space-between;
+        font-size: 16px;
     }
-    section.contact-info, section.car-info {
-      background: rgba(255,255,255,0.05);
-      border-radius: 12px;
-      padding: 18px;
-      margin-bottom: 20px;
-      text-align: left;
-      border-left: 4px solid var(--primary);
+
+    .contact-label { color: #aaa; }
+    .contact-value { color: #fff; font-weight: 600; }
+
+    .btn {
+        margin-top: 25px;
+        background: linear-gradient(135deg, #4a90e2, #357abd);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 50px;
+        font-size: 18px;
+        font-weight: 600;
+        text-decoration: none;
+        box-shadow: 0 4px 15px rgba(74, 144, 226, 0.4);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: none;
     }
-    .contact-item, .car-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 17px;
-      margin: 8px 0;
+
+    .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(74, 144, 226, 0.6);
     }
-    .contact-label, .car-label {
-      color: var(--text-muted);
-      font-weight: 500;
+
+    #gameCanvas {
+        display: none;
+        background: black;
+        border-radius: 12px;
+        margin-top: 20px;
     }
-    .contact-value, .car-value {
-      font-weight: 600;
-      color: var(--text);
-      cursor: pointer;
-      transition: color 0.3s;
+
+    #gameOver {
+        display: none;
+        background: rgba(0,0,0,0.7);
+        padding: 20px;
+        border-radius: 12px;
+        margin-top: 20px;
     }
-    .contact-value:hover {
-      color: var(--primary);
+
+    .footer {
+        margin-top: 20px;
+        color: #888;
+        font-size: 14px;
     }
-    a.phone-link {
-      display: inline-block;
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: var(--text);
-      padding: 12px 25px;
-      border-radius: 50px;
-      text-decoration: none;
-      font-size: 18px;
-      font-weight: 600;
-      margin: 10px 0;
-      box-shadow: 0 4px 15px rgba(74,144,226,0.4);
-      transition: all 0.3s ease;
-    }
-    a.phone-link:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 20px rgba(74,144,226,0.6);
-    }
-    a.phone-link:active {
-      transform: translateY(1px);
-    }
-    .game-link {
-      display: inline-block;
-      margin-top: 8px;
-      color: var(--primary);
-      text-decoration: none;
-      font-size: 15px;
-      background: rgba(255,255,255,0.08);
-      padding: 8px 15px;
-      border-radius: 30px;
-      transition: all 0.3s;
-    }
-    .game-link:hover {
-      background: rgba(255,255,255,0.15);
-    }
-    .tips {
-      margin-top: 20px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 10px;
-      padding: 15px;
-      font-size: 15px;
-      color: #ccc;
-      line-height: 1.6;
-    }
-    .wechat-note {
-      margin-top: 20px;
-      font-size: 16px;
-      color: var(--text-light);
-    }
-    .copy-hint {
-      font-size: 14px;
-      color: var(--text-muted);
-      margin-top: 12px;
-    }
-    footer.footer {
-      margin-top: 25px;
-      font-size: 14px;
-      color: #666;
-    }
-    @media (max-width: 480px) {
-      main.container {
-        padding: 20px 15px;
-      }
-      h1.title { font-size: 22px; }
-      p.notice, .contact-item, .car-item { font-size: 16px; }
-      a.phone-link { font-size: 17px; padding: 10px 20px; }
-    }
-  </style>
+</style>
 </head>
 <body>
-  <main class="container">
-    <div class="car-icon">🚗</div>
-    <h1 class="title">临时停车通知</h1>
+    <div class="container" id="infoBox">
+        <div style="font-size:40px;">🚗</div>
+        <h1>临时停车通知</h1>
+        <p class="notice">临时停车，深表歉意！如需挪车，请联系：</p>
 
-    <p class="notice">
-      临时停车，深表歉意！<br>
-      如需挪车，请联系车主：
-    </p>
+        <div class="contact-info">
+            <div class="contact-item">
+                <span class="contact-label">姓名：</span>
+                <span class="contact-value">王先生</span>
+            </div>
+            <div class="contact-item">
+                <span class="contact-label">电话：</span>
+                <span class="contact-value">18612594307</span>
+            </div>
+            <div class="contact-item">
+                <span class="contact-label">微信：</span>
+                <span class="contact-value">微信同号</span>
+            </div>
+            <div class="contact-item">
+                <span class="contact-label">车辆：</span>
+                <span class="contact-value">晋B·LL931 黑色哈弗H6</span>
+            </div>
+        </div>
 
-    <!-- 联系信息 -->
-    <section class="contact-info">
-      <div class="contact-item">
-        <span class="contact-label">姓名：</span>
-        <span class="contact-value">王先生</span>
-      </div>
-      <div class="contact-item">
-        <span class="contact-label">电话：</span>
-        <span class="contact-value phone-number" data-phone="18612594307">18612594307</span>
-      </div>
-    </section>
+        <a href="tel:18612594307" class="btn">📞 拨打电话</a>
+        <button class="btn" id="playBtn">✈️ 打发时间小游戏</button>
 
-    <!-- 车辆信息 -->
-    <section class="car-info">
-      <div class="car-item">
-        <span class="car-label">车牌号：</span>
-        <span class="car-value">晋B LL931</span>
-      </div>
-      <div class="car-item">
-        <span class="car-label">车型：</span>
-        <span class="car-value">黑色 哈弗 H6</span>
-      </div>
-    </section>
+        <div class="footer">感谢您的理解与配合</div>
+    </div>
 
-    <!-- 拨号按钮 -->
-    <a href="tel:18612594307" class="phone-link">📞 点击拨打挪车电话</a>
+    <canvas id="gameCanvas"></canvas>
 
-    <!-- 替换为小游戏链接 -->
-    <a href="https://example.com/game" target="_blank" class="game-link">🎮 打开小游戏放松一下</a>
+    <div id="gameOver">
+        <h2>游戏结束 🎮</h2>
+        <p id="scoreDisplay"></p>
+        <button class="btn" id="retryBtn">再玩一次</button>
+        <button class="btn" id="backBtn">返回信息页</button>
+    </div>
 
-    <p class="copy-hint">点击电话号码可复制</p>
+<script>
+const infoBox = document.getElementById('infoBox');
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+const gameOverBox = document.getElementById('gameOver');
+const scoreDisplay = document.getElementById('scoreDisplay');
+const playBtn = document.getElementById('playBtn');
+const retryBtn = document.getElementById('retryBtn');
+const backBtn = document.getElementById('backBtn');
 
-    <!-- 微信同号提示 -->
-    <p class="wechat-note">📱 微信同号</p>
+let ship = { x: 150, y: 420, w: 30, h: 30 };
+let bullets = [];
+let enemies = [];
+let score = 0;
+let keys = {};
+let gameRunning = false;
 
-    <!-- 温馨提示 -->
-    <section class="tips">
-      🚘 车辆不会长时间停放。<br>
-      若造成不便，敬请谅解与配合！
-    </section>
+function resizeCanvas() {
+    const ratio = window.innerHeight / window.innerWidth;
+    let baseWidth = 320;
+    let baseHeight = 480;
+    if (ratio < 1) { // 横屏
+        baseWidth = 480;
+        baseHeight = 320;
+    }
+    canvas.width = baseWidth;
+    canvas.height = baseHeight;
+    ship.x = baseWidth / 2 - 15;
+    ship.y = baseHeight - 60;
+}
+window.addEventListener('resize', resizeCanvas);
 
-    <footer class="footer">
-      感谢您的理解与配合
-    </footer>
-  </main>
+function startGame() {
+    infoBox.style.display = 'none';
+    gameOverBox.style.display = 'none';
+    canvas.style.display = 'block';
+    resizeCanvas();
+    gameRunning = true;
+    score = 0;
+    bullets = [];
+    enemies = [];
+    loop();
+}
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const phoneElement = document.querySelector('.phone-number');
-      const phoneNumber = phoneElement.dataset.phone;
+function loop() {
+    if (!gameRunning) return;
+    update();
+    draw();
+    requestAnimationFrame(loop);
+}
 
-      phoneElement.addEventListener('click', () => copyPhone(phoneNumber));
-
-      async function copyPhone(number) {
-        try {
-          if (navigator.clipboard) {
-            await navigator.clipboard.writeText(number);
-          } else {
-            fallbackCopy(number);
-          }
-          showCopied();
-          if (navigator.vibrate) navigator.vibrate(100);
-        } catch (err) {
-          console.error('复制失败: ', err);
-          alert('复制失败，请手动复制号码');
-        }
-      }
-
-      function fallbackCopy(text) {
-        const input = document.createElement('textarea');
-        input.value = text;
-        document.body.appendChild(input);
-        input.select();
-        document.execCommand('copy');
-        document.body.removeChild(input);
-      }
-
-      function showCopied() {
-        const originalText = phoneElement.textContent;
-        phoneElement.textContent = '已复制到剪贴板！';
-        phoneElement.style.color = '#4CAF50';
-        setTimeout(() => {
-          phoneElement.textContent = originalText;
-          phoneElement.style.color = '';
-        }, 1500);
-      }
+function update() {
+    if (keys['ArrowLeft'] && ship.x > 0) ship.x -= 5;
+    if (keys['ArrowRight'] && ship.x < canvas.width - ship.w) ship.x += 5;
+    bullets.forEach(b => b.y -= 8);
+    bullets = bullets.filter(b => b.y > 0);
+    if (Math.random() < 0.03) enemies.push({ x: Math.random() * (canvas.width - 30), y: -20, w: 30, h: 30 });
+    enemies.forEach(e => e.y += 3);
+    enemies = enemies.filter(e => e.y < canvas.height);
+    bullets.forEach((b, bi) => {
+        enemies.forEach((e, ei) => {
+            if (b.x < e.x + e.w && b.x + 4 > e.x && b.y < e.y + e.h && b.y + 10 > e.y) {
+                bullets.splice(bi, 1);
+                enemies.splice(ei, 1);
+                score++;
+            }
+        });
     });
-  </script>
-</body>
-</html>
+    enemies.forEach(e => {
+        if (e.x < ship.x + ship.w && e.x + e.w > ship.x && e.y < ship.y + ship.h && e.y + e.h > ship.y) {
+            endGame();
+        }
+    });
+}
+
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = 'white';
+    ctx.fillRect(ship.x, ship.y, ship.w, ship.h);
+    ctx.fillStyle = 'yellow';
+    bullets.forEach(b => ctx.fillRect(b.x, b.y, 4, 10));
+    ctx.fillStyle = 'red';
+    enemies.forEach(e => ctx.fillRect(e.x, e.y, e.w, e.h));
+    ctx.fillStyle = 'white';
+    ctx.fillText('得分: ' + score, 10, 20);
+}
+
+function endGame() {
+    gameRunning = false;
+    canvas.style.display = 'none';
+    gameOverBox.style.display = 'block';
+    scoreDisplay.textContent = '您的得分：' + score;
+}
+
+document.addEventListener('keydown', e => keys[e.key] = true);
+document.addEventListener('keyup', e => keys[e.key] = false);
+document.addEventListener('keydown', e => {
+    if (e.key === ' ') bullets.push({ x: ship.x + ship.w/2 - 2, y: ship.y });
+});
+
+playBtn.addEventListener('click', startGame);
+retryBtn.addEventListener('click', startGame);
+backBtn.addEventListener('click', () => {
+    gameOverBox.style.display = 'none';
+    infoBox.style.display = 'block';
+});
+</script>
+</body
