@@ -114,7 +114,7 @@ h1 { font-size: 26px; margin-bottom: 10px; }
 </head>
 <body>
 <div id="musicToggle">🔊</div>
-<audio id="bgMusic" loop preload="auto" autoplay muted>
+<audio id="bgMusic" loop preload="auto" autoplay playsinline>
   <!--<source src="https://cdn.pixabay.com/audio/2022/10/25/audio_3232c0dd08.mp3" type="audio/mpeg">-->
     <!--引用音乐-->
     <source src="music.mp3" type="audio/mpeg">
@@ -151,32 +151,22 @@ h1 { font-size: 26px; margin-bottom: 10px; }
 <script>
 const bgMusic = document.getElementById('bgMusic');
 const musicToggle = document.getElementById('musicToggle');
-let musicOn = false;
+bgMusic.volume = 0.5;
+bgMusic.muted = false;
 
-// 尝试预播放音乐（静音）
-bgMusic.volume = 0;
-bgMusic.play().catch(() => {});
-
-// 等待用户交互后恢复音量播放
-function enableMusic() {
-  if (!musicOn) {
-    bgMusic.volume = 0.5;
-    bgMusic.play();
-    musicOn = true;
-  }
+function startMusic() {
+  bgMusic.play().catch(() => {});
 }
-document.addEventListener('touchstart', enableMusic, { once: true });
-document.addEventListener('click', enableMusic, { once: true });
 
-// 音乐开关
+window.addEventListener('DOMContentLoaded', startMusic);
+window.addEventListener('pageshow', startMusic);
+document.addEventListener('touchstart', startMusic, { once: true });
+document.addEventListener('click', startMusic, { once: true });
+
+// 静音开关
 musicToggle.addEventListener('click', () => {
-  if (bgMusic.paused) {
-    bgMusic.play();
-    musicToggle.textContent = '🔊';
-  } else {
-    bgMusic.pause();
-    musicToggle.textContent = '🔇';
-  }
+  bgMusic.muted = !bgMusic.muted;
+  musicToggle.textContent = bgMusic.muted ? '🔇' : '🔊';
 });
 
 const infoBox = document.getElementById('infoBox');
